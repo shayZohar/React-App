@@ -27,6 +27,7 @@ passport.use(
 			clientID: keys.googleClientID,
 			clientSecret: keys.googleClientSecret,
 			callbackURL: '/auth/google/callback',
+			proxy: true
 		},
 		// CALLBACK FUNCTION - the code of info that comes back from google after log in and come back to callback route
 		// the calls for mongo are all asynchronous, so it uses PROMISE (we will refactor it later to better method)
