@@ -3,7 +3,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const mongoose = require('mongoose');
 
-
 // fetching model from model of User
 const User = mongoose.model('users');
 
@@ -30,18 +29,18 @@ passport.use(
 			proxy: true,
 		},
 		// CALLBACK FUNCTION - the code of info that comes back from google after log in and come back to callback route
-		// the calls for mongo are all asynchronous, so it uses PROMISE (we will refactor it later to better method)
-		(accessToken, refreshToken, profile, done) => {
-			User.findOne({ googleId: profile.id }).then((existingUser) => {
-				if (existingUser) {
-					//found user on mongo
-					// in "done" func - first arg is error,this case no error, second arg is the record,this case existingUser
-					done(null, existingUser);
-				} else {
-					//create new user and save it to the database, wait for it to be saved'then call "done" and pass the new user
-					new User({ googleId: profile.id }).save().then((user) => done(null, user));
-				}
-			});
+		// the calls for mongo are all asynchronous, so it uses PROMISE
+		async (accessToken, refreshToken, profile, done) => {
+			const existingUser = await User.findOne({ googleId: profile.id });
+			if (existingUser) {
+				//found user on mongo
+				// in "done" func - first arg is error,this case no error, second arg is the record,this case existingUser
+				done(null, existingUser);
+			} else {
+				//create new user and save it to the database, wait for it to be saved, then call "done" and pass the new user
+				const user = await new User({ googleId: profile.id }).save()
+				 done(null, user);
+			}
 		}
 	)
 );

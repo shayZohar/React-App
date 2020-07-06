@@ -12,16 +12,24 @@ module.exports = (app) => {
 	);
 
 	// callback from google with google code to use with googleStrategy
-	app.get('/auth/google/callback', passport.authenticate('google'));
+	app.get(
+	'/auth/google/callback',
+	 passport.authenticate('google'),
+	 (req,res) => {
+		 res.redirect('/surveys');
+	 }
+	 );
 
 	// logging-out, 
 	app.get('/api/logout',(req,res) =>{
 		req.logout(); // taking the cookie with the user id and killing it
-		res.send(req.user); // user is now undefined
+		res.redirect('/'); // user is now undefined
 	})
 
 
-	app.get('/api/currentuser', (req,res) => {
+	//if a user is signed-in to the app
+	app.get('/api/current_user', (req,res) => {
 		res.send(req.user);
 	});
+
 }; //end of export
