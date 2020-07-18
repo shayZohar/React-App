@@ -8,6 +8,10 @@ import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import reducers from './reducers';
 
+//dev only axios helpers
+import axios from 'axios';
+window.axios = axios;
+
 //creating redux store to store all actions
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
