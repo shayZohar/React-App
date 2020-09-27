@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import  Payments  from './Payments';
+import Payments from './Payments';
+import CustomizedDialogs from '../utils/costumizedDialog';
 
 class Header extends Component {
+	helpContent = 'this is the content of main help';
 	//check and render if user is logged-in
 	renderContent() {
 		switch (this.props.auth) {
@@ -20,7 +22,9 @@ class Header extends Component {
 					<li key="1">
 						<Payments />
 					</li>,
-					<li key="3" style={{margin: '0 10px'}}>Credits: {this.props.auth.credits}</li>,
+					<li key="3" style={{ margin: '0 10px' }}>
+						Credits: {this.props.auth.credits}
+					</li>,
 					<li key="2">
 						<a href="/api/logout">Logout</a>
 					</li>,
@@ -36,6 +40,9 @@ class Header extends Component {
 						Surveys By Emails
 					</Link>
 					<ul className="right">{this.renderContent()}</ul>
+					<div style={{ float: 'right' }}>
+						<CustomizedDialogs title="main help" content={this.helpContent}></CustomizedDialogs>
+					</div>
 				</div>
 			</nav>
 		);

@@ -1,15 +1,19 @@
 import React, { Component, StyleSheet } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 class Footer extends Component {
 	render() {
 		return (
 			<nav style={styles.nav}>
 				<div className="nav-wrapper">
-					<Link to={this.props.auth ? '/surveys' : '/'} className="left brand-logo">
+					<Button href={'https://www.linkedin.com/in/shay-zohar-b48461180/'} className="right brand-logo">
 						LinkedIn Link
-					</Link>
+						<LinkedInIcon ></LinkedInIcon>
+					</Button>
+					<Button  style={styles.Button}>Hello World</Button>
 				</div>
 			</nav>
 		);
@@ -34,5 +38,8 @@ const styles = {
 		color: '#333333',
 		marginBottom: 5,
 	},
+	Button: {
+		alignItems: 'center',
+	}
 };
 export default Footer;
