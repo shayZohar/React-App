@@ -39,7 +39,7 @@ class Header extends Component {
 					<Link to={this.props.auth ? '/surveys' : '/'} className="left brand-logo">
 						Surveys By Emails
 					</Link>
-					<ul className="right">{this.renderContent()}</ul>
+					<ul className="right"> {this.renderContent()}</ul>
 					<div style={{ float: 'right' }}>
 						<CustomizedDialogs title="main help" content={this.helpContent}></CustomizedDialogs>
 					</div>
